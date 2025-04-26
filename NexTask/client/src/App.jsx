@@ -1,0 +1,35 @@
+import React, { useEffect } from 'react'
+import { Routes,Route ,useNavigate} from 'react-router-dom';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
+
+
+
+/* hadles all routes*/
+const App = () => {
+  const navigate=useNavigate();
+  useEffect(()=>{
+    if(localStorage.getItem("userLoggedIn")){
+      navigate("/dashboard");
+    }else{
+      navigate("/login");
+    }
+
+  },[])
+
+  return (
+    <>
+    <Routes>   
+      <Route path="/register" element={<Register/>}/>
+      <Route path="/login" element={<Login/>}/>
+      <Route path="/dashboard" element={<Dashboard/>}/>
+    </Routes>
+    </>
+  );
+}
+
+export default App
